@@ -1,4 +1,4 @@
-import api from '@/api/client'
+import api from '../api/client'
 
 export type Role = 
 | 'ADMIN'
@@ -20,3 +20,10 @@ export interface AuthResponse {
     access_token: string
     user: User
 }
+
+//api error
+export interface ApiError {
+    message: string
+    statusCode: number
+}
+
