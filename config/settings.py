@@ -121,6 +121,6 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-AUTH_USER_MODEL = "electral.User"
+AUTH_USER_MODEL = "electral.CustomUser"
 REDIS_URL = env("REDIS_URL")
 STATIC_ROOT = BASE_DIR / "staticfiles"
