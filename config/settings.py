@@ -44,6 +44,14 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+REST_FRAMEWORK = {
+    "DEFAULT_THROTTLE_RATES": {"register": "5/hour"},
+}
+
+
+
+
+
 ROOT_URLCONF = 'config.urls'
 
 TEMPLATES = [
