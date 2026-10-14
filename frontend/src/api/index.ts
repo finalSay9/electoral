@@ -9,4 +9,4 @@ export const registerUser = (data: {
     name: string;
     address: string;
     password: string;
-}) => api.post<AuthResponse>('/users/register', data).then(res => res.data)
+}) => api.post<AuthResponse>('/register', data).then(res => res.data)

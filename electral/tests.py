@@ -4,7 +4,8 @@ from django.contrib.auth import get_user_model
 
 
 class RegisterTests(APITestCase):
-    url = "/api/register/"  # adjust to your urls.py
+    def setUp(self):
+        self.url = reverse("register")  # adjust to your urls.py
 
     def test_register_creates_voter(self):
         r = self.client.post(self.url, {
