@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import axios from 'axios';
+import { registerUser } from '../../api';
 
 
 
@@ -11,8 +12,10 @@ export const Register: React.FC = () => {
         address: '',
         password: ''
     })
+    const { setAuth } = useAuthStore()
     const [errors, setErrors] = useState<Record<string, string>>({})
     const [loading, setLoading] = useState(false)
+
 
     const up = (f: string) => (e: React.ChangeEvent<HTMLInputElement>) => setForm(p => ({ ...p, [f]: e.target.value }))
 
