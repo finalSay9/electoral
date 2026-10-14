@@ -1,11 +1,14 @@
 import React, {useEffect, useState} from 'react'
-import axios from 'axios';
+import toast from 'react-hot-toast'
+import { Link, useNavigate } from 'react-router-dom'
 import { registerUser } from '../../api';
+import { useAuthStore } from '../../store/auth.store';
 
 
 
 
 export const Register: React.FC = () => {
+    const navigate = useNavigate()
     const [form, setForm] = useState({
         email: '',
         name: '',

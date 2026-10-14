@@ -5,8 +5,8 @@ import { AuthResponse } from '../types';
 
 //auth
 export const registerUser = (data: {
-    email: string
-    name: string
-    address: string
-    password: string
+    email?: string;
+    name: string;
+    address: string;
+    password: string;
 }) => api.post<AuthResponse>('/users/register', data).then(res => res.data)
