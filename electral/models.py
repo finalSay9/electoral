@@ -25,6 +25,9 @@ class CustomUserManager(BaseUserManager):
             raise ValueError("Superuser must have is_superuser=True.")
         return self.create_user(email, password, **extra_fields)
 
+    def get_by_natural_key(self, username):
+        return self.get(email__iexact=username)
+
 
 
 class CustomUser(AbstractBaseUser, PermissionsMixin):
@@ -33,7 +36,6 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
         ADMIN = 'ADMIN', 'admin'
         CANDIDATE = 'CANDIDATE', 'candidate'
         VOTER ='VOTER', 'voter'
-
 
 
 
