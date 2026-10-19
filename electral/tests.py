@@ -34,3 +34,44 @@ class RegisterTests(APITestCase):
             "email": "b@example.com", "name": "B", "address": "x", "password": "123456",
         })
         self.assertEqual(r.status_code, 400)
+
+
+class LoginTests(APITestCase):
+
+    def setUp(self):
+        get_user_model().objects.create_user(
+            email="v@example.com", password="S7rong!Pass_93", name="V"
+        )
+
+    def test_login_returns_tokens(self):
+        r = self.client.post(reverse("login"), {
+            "email": "v@example.com", "password": "S7rong!Pass_93",
+        })
+        self.assertEqual(r.status_code, 200)
+        self.assertIn("access", r.data)
+
+    def test_me_requires_token(self):
+        self.assertEqual(self.client.get(reverse("me")).status_code, 401)
+
+    def test_me_with_token(self):
+        r = self.client.post(reverse("login"), {
+            "email": "v@example.com", "password": "S7rong!Pass_93",
+        })
+        self.client.credentials(HTTP_AUTHORIZATION=f"Bearer {r.data['access']}")
+        me = self.client.get(reverse("me"))
+        self.assertEqual(me.status_code, 200)
+        self.assertEqual(me.data["role"], "VOTER") 
+
+
+    def test_login_is_case_insensitive_and_returns_role(self):
+        r = self.client.post(reverse("login"), {
+            "email": "V@Example.com", "password": "S7rong!Pass_93",
+        })
+        self.assertEqual(r.status_code, 200)
+        self.assertEqual(r.data["user"]["role"], "VOTER")
+
+    def test_wrong_password_rejected(self):
+        r = self.client.post(reverse("login"), {
+            "email": "v@example.com", "password": "wrong",
+        })
+        self.assertEqual(r.status_code, 401)

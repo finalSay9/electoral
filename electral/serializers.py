@@ -44,3 +44,4 @@ class LoginSerializer(TokenObtainPairSerializer):
             "name": self.user.name,
             "role": self.user.role
         }
+        return data
