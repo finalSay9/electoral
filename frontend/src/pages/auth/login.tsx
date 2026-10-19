@@ -43,7 +43,7 @@ export const Login: React.FC = () => {
 
   return (
     <form onSubmit={handleSubmit} className="auth-stack">
-        <Input label="Phone number" type="tel" placeholder="+265991234567"
+        <Input label="email" type="email" placeholder="example@gmail.com"
           icon={<Mail size={16} />}
           value={form.email} onChange={e => setForm(f => ({ ...f, email: e.target.value }))}
           error={errors.email} />

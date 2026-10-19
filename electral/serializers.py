@@ -4,7 +4,7 @@ from rest_framework.permissions import AllowAny
 from django.contrib.auth import get_user_model
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.password_validation import validate_password as run_validators
-from django.contrib.auth.password_validation import validate_password
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
 
 
@@ -31,3 +31,16 @@ class RegisterSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         return User.objects.create_user(**validated_data)
+
+
+
+
+
+class LoginSerializer(TokenObtainPairSerializer):
+    def validate(self, attrs):
+        data = super().validate(attrs)
+        data['user'] = {
+            "email": self.user.email,
+            "name": self.user.name,
+            "role": self.user.role
+        }
